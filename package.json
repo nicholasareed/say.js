@@ -1,5 +1,5 @@
 {
-  "name": "say",
+  "name": "say-v0.8.0",
   "description": "TTS (Text To Speech) Module for Node.js",
   "version": "0.8.0",
   "author": "Marak Squires",
