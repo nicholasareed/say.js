@@ -21,7 +21,7 @@ if (process.platform === 'darwin') {
  * @param {number|null} speed Speed of text (On OSX this is Word per Minute, Linux is percent of normal e.g. 100)
  * @param {Function|null} callback A callback of type function(err) to return.
  */
-say.speak = function(text, voice, speed, callback) {
+say.speak = function(text, device, voice, speed, callback) {
   var commands, pipedData;
 
   if (typeof callback !== 'function') {
@@ -41,12 +41,20 @@ say.speak = function(text, voice, speed, callback) {
       commands = [ '-v', voice, text];
     }
 
+    if (device) {
+      commands.push('-D', device);
+    }
+
     if (speed) {
       commands.push('-r', speed);
     }
   } else if (process.platform === 'linux') {
     commands = ['--pipe'];
 
+    if (device) {
+      commands.push('-D', device);
+    }
+    
     if (speed) {
       pipedData = '(Parameter.set \'Audio_Command "aplay -q -c 1 -t raw -f s16 -r $(($SR*' + speed + '/100)) $FILE") ';
     }
